@@ -17,3 +17,33 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['users'] = User.objects.all()
         return context
+
+
+class AulasView(TemplateView):
+
+    template_name = "aulas.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['users'] = User.objects.all()
+        return context
+
+
+class MonitoresView(TemplateView):
+
+    template_name = "monitores.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['users'] = User.objects.all()
+        return context
+
+
+class EventosView(TemplateView):
+
+    template_name = "eventos.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['users'] = User.objects.all()
+        return context

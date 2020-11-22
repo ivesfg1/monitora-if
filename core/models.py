@@ -43,7 +43,7 @@ class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     registration = models.CharField(max_length=11, unique=True)
     photo = StdImageField('Imagem', upload_to=get_file_path,
-                          variations={'thumb': {'width': 480, 'height': 480, 'crop': True}})
+                          variations={'thumb': {'width': 300, 'height': 300, 'crop': True}})
     about = models.TextField(max_length=400)
 
     def __str__(self):
