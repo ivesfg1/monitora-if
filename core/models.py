@@ -40,7 +40,7 @@ def get_file_path(_instance, filename):
 
 class User(AbstractUser):
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     registration = models.CharField(max_length=11, unique=True)
     photo = StdImageField('Imagem', upload_to=get_file_path,
                           variations={'thumb': {'width': 300, 'height': 300, 'crop': True}})
@@ -52,3 +52,14 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Usuário'
         verbose_name_plural = 'Usuários'
+
+
+# class Teste(models.Model):
+#
+#     GENDER = (
+#         (0, 'Masculino'),
+#         (1, 'Feminino')
+#     )
+#
+#     name = models.CharField(max_length=100)
+#     gender_choice = models.IntegerField(choices=GENDER)

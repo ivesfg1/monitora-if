@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.urls import reverse_lazy
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView, TemplateView, FormView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -12,11 +12,6 @@ from .models import *
 class IndexView(TemplateView):
 
     template_name = "index.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['users'] = User.objects.all()
-        return context
 
 
 class AulasView(TemplateView):
@@ -29,9 +24,52 @@ class AulasView(TemplateView):
         return context
 
 
-class MonitoresView(TemplateView):
 
-    template_name = "monitores.html"
+
+
+
+
+
+
+class MonitoresListView(ListView):
+
+    model = User
+    template_name = 'core/monitores.html'
+    # queryset = User.objects.filter(status=True)
+
+
+class MonitoresDetailView(DetailView):
+
+    model = User
+    template_name = 'core/monitores-detail.html'
+
+
+class MonitoresCreateView(CreateView):
+
+    model = User
+    fields = ('registration', 'about', 'first_name', 'last_name', 'password', 'photo', 'username')
+
+    template_name = 'core/monitores-form.html'
+    success_url = reverse_lazy('monitores')
+
+
+class MonitoresUpdateView(UpdateView):
+
+    model = User
+    template_name = 'core/monitores-form.html'
+
+
+
+
+
+
+
+
+
+
+class EventosView(TemplateView):
+
+    template_name = "eventos.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -39,9 +77,9 @@ class MonitoresView(TemplateView):
         return context
 
 
-class EventosView(TemplateView):
+class LoginView(TemplateView):
 
-    template_name = "eventos.html"
+    template_name = "login.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

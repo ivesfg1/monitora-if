@@ -11,16 +11,14 @@
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
 
 
-          {% for user in users %}
-
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="member">
-              <img src="{{ user.photo.thumb.url }}" class="img-fluid" alt="">
+              <img src="{{ object.photo.thumb.url }}" class="img-fluid" alt="">
               <div class="member-content">
-                <h4>{{ user.username }}</h4>
-                <span>{{ user.registration }}</span>
+                <h4><a href="{% url 'monitores-detail' user.pk %}">{{ user.username }}</a></h4>
+                <span>{{ object.registration }}</span>
                 <p>
-                  {{ user.about }}
+                  {{ object.about }}
                 </p>
                 <div class="social">
                   <a href=""><i class="icofont-twitter"></i></a>
@@ -32,7 +30,6 @@
             </div>
           </div>
 
-          {% endfor %}
 
         </div>
 
