@@ -24,13 +24,6 @@ class AulasView(TemplateView):
         return context
 
 
-
-
-
-
-
-
-
 class MonitoresListView(ListView):
 
     model = User
@@ -48,9 +41,14 @@ class MonitoresCreateView(CreateView):
 
     model = User
     fields = ('registration', 'about', 'first_name', 'last_name', 'password', 'photo', 'username')
+    # fields = ('email', 'username', 'password', 'registration', 'about', 'photo')
 
     template_name = 'core/monitores-form.html'
     success_url = reverse_lazy('monitores')
+
+    # def post(self, request, *args, **kwargs):
+    #     print(request.POST)
+    #     return super().post(request, *args, **kwargs)
 
 
 class MonitoresUpdateView(UpdateView):
@@ -59,27 +57,9 @@ class MonitoresUpdateView(UpdateView):
     template_name = 'core/monitores-form.html'
 
 
-
-
-
-
-
-
-
-
 class EventosView(TemplateView):
 
     template_name = "eventos.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['users'] = User.objects.all()
-        return context
-
-
-class LoginView(TemplateView):
-
-    template_name = "login.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
