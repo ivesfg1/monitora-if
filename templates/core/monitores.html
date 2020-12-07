@@ -11,13 +11,13 @@
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
 
 
-          {% for user in object_list %}
+          {% for user in monitores %}
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="member">
               <img src="{{ user.photo.thumb.url }}" class="img-fluid" alt="">
               <div class="member-content">
-                <h4><a href="{% url 'monitores-detail' user.pk %}">{{ user.username }}</a></h4>
+                <h4>{{ user.username }}</a></h4>
                 <span>{{ user.registration }}</span>
                 <p>
                   {{ user.about }}

@@ -1,67 +1,59 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404
 
+from django.contrib import messages
+
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView, FormView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import *
+from .forms import *
 
 
-class IndexView(TemplateView):
-
-    template_name = "index.html"
-
-
-class AulasView(TemplateView):
-
-    template_name = "aulas.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['users'] = User.objects.all()
-        return context
+def index(request):
+    return render(request, 'index.html')
 
 
-class MonitoresListView(ListView):
+@login_required
+def monitores_list(request):
 
-    model = User
-    template_name = 'core/monitores.html'
-    # queryset = User.objects.filter(status=True)
+    context = {
+        'monitores': User.objects.all()
+    }
+    return render(request, 'core/monitores.html', context)
 
-
-class MonitoresDetailView(DetailView):
-
-    model = User
-    template_name = 'core/monitores-detail.html'
+# lembrar de botar la no template de list dnv na parte do h4 <a href="{% url 'monitores-detail' user.pk %}">
 
 
-class MonitoresCreateView(CreateView):
+def monitores_create(request):
 
-    model = User
-    fields = ('registration', 'about', 'first_name', 'last_name', 'password', 'photo', 'username')
-    # fields = ('email', 'username', 'password', 'registration', 'about', 'photo')
+    if request.user.is_authenticated:
+        return redirect(reverse_lazy('index'))
 
-    template_name = 'core/monitores-form.html'
-    success_url = reverse_lazy('monitores')
+    form = CadastroForm(request.POST, request.FILES)
+    if form.is_valid():
 
-    # def post(self, request, *args, **kwargs):
-    #     print(request.POST)
-    #     return super().post(request, *args, **kwargs)
+        # user = User(**form.cleaned_data)
 
+        # user.photo = form.cleaned_data["photo"]
+        # user.registration = form.cleaned_data["registration"]
+        # user.username = form.cleaned_data["username"]
+        # user.set_password(form.cleaned_data["password"])
 
-class MonitoresUpdateView(UpdateView):
+        # user.save()
 
-    model = User
-    template_name = 'core/monitores-form.html'
+        # ↴ maneira mais compacta de se fazer a mesma coisa.
 
+        user = form.save()
+        user.set_password(form.cleaned_data["password"])
+        user.save()
 
-class EventosView(TemplateView):
+        form = CadastroForm()
+        return redirect(reverse_lazy('login'))
 
-    template_name = "eventos.html"
+    context = {
+        'form': CadastroForm()
+    }
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['users'] = User.objects.all()
-        return context
+    return render(request, 'cadastro.html', context)
