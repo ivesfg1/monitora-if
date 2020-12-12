@@ -3,7 +3,18 @@ from .models import *
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id',)
+    list_display = ('username',)
 
 
-admin.site.register(User)
+class SubjectAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+
+class CourseAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    filter_horizontal = ('subjects',)
+
+
+admin.site.register(User, UserAdmin)
+admin.site.register(Subject, SubjectAdmin)
+admin.site.register(Course, CourseAdmin)

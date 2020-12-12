@@ -11,16 +11,16 @@
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
 
 
-          {% for user in monitores %}
+          {% for usuario in monitores %}
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="member">
-              <img src="{{ user.photo.thumb.url }}" class="img-fluid" alt="">
+              <img src="{{ usuario.photo.thumb.url }}" class="img-fluid" alt="">
               <div class="member-content">
-                <h4>{{ user.username }}</a></h4>
-                <span>{{ user.registration }}</span>
+                <h4><a href="{% url 'monitores-detail' usuario.pk %}">{{ usuario.username }}</a></h4>
+                <span>{{ usuario.registration }}</span>
                 <p>
-                  {{ user.about }}
+                  {{ usuario.about }}
                 </p>
                 <div class="social">
                   <a href=""><i class="icofont-twitter"></i></a>

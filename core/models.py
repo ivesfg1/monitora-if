@@ -22,6 +22,7 @@ class User(AbstractUser):
     photo = StdImageField('Imagem', upload_to=get_file_path,
                           variations={'thumb': {'width': 300, 'height': 300, 'crop': True}}, blank=True, null=True)
     about = models.TextField(max_length=400, blank=True, null=True)
+    subject = models.ForeignKey('Subject', on_delete=models.CASCADE, related_name='users', blank=True, null=True)
 
     def __str__(self):
         return self.username
@@ -29,3 +30,42 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Usuário'
         verbose_name_plural = 'Usuários'
+
+
+class Subject(models.Model):
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Disciplina'
+        verbose_name_plural = 'Disciplinas'
+
+
+class Course(models.Model):
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100, unique=True)
+    subjects = models.ManyToManyField(Subject, related_name='course')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Curso'
+        verbose_name_plural = 'Cursos'
+
+
+class Request(models.Model):
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    requisitioner = models.ForeignKey(User, related_name='requesitioner', on_delete=models.CASCADE)
+    teacher = models.ForeignKey(User, related_name='teacher', on_delete=models.CASCADE)
+    comment = models.TextField(max_length=1000)
+
+    class Meta:
+        verbose_name = 'Pedido'
+        verbose_name_plural = 'Pedidos'

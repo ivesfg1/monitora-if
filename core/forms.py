@@ -11,3 +11,11 @@ class CadastroForm(forms.ModelForm):
 
         model = User
         fields = ('photo', 'registration', 'username')
+
+
+class RequestForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Request
+        fields = ('requisitioner', 'teacher', 'comment')
