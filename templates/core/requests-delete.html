@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<br><br><br><br><br>
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Request - Deletar</h2>
+        </div>
+
+        <br><br><br><br><br><br>
+
+        <div class="row">
+            <div class="col-lg-4 mt-4 mt-md-0 offset-md-4">
+
+                <form method="post" action="" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    <center>
+                    Deseja realmente deletar este pedido?
+                    </center>
+
+                    <br>
+
+                    <center>
+                    <button type="submit" class="btn btn-success">Sim</button>
+                    <a class="btn btn-success" href="{% url 'home' %}" role="button" style="color: #FFFFFF;">Não</a>
+                    </center>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section><!-- End Contact Section -->
+<br><br><br><br><br>
+{% endblock %}

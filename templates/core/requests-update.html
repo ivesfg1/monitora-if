@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<br><br><br><br><br>
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Request - Cadastro</h2>
+        </div>
+
+        <br><br><br><br><br><br>
+
+        <div class="row">
+            <div class="col-lg-4 mt-4 mt-md-0 offset-md-4">
+
+                <form method="post" action="" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    <div class="form-row">
+                        <div class="col-md-12 form-group">
+                            {{ form.teacher|add_class:'form-control'|append_attr:'placeholder:Comentário'|append_attr:'data-rule:"minlen:10"' }}
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-12 form-group">
+                            {{ form.comment|add_class:'form-control'|append_attr:'placeholder:Comentário'|append_attr:'data-rule:"minlen:10"' }}
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">Fazer Pedido</button>
+                        <input type="hidden" name="next" value="{{ next }}">
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section><!-- End Contact Section -->
+<br><br><br><br><br>
+{% endblock %}

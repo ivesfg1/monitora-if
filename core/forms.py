@@ -18,4 +18,4 @@ class RequestForm(forms.ModelForm):
     class Meta:
 
         model = Request
-        fields = ('requisitioner', 'teacher', 'comment')
+        fields = ('teacher', 'comment')

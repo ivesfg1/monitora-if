@@ -2,6 +2,17 @@
 {% load static %}
 {% block content %}
 
+<br><br><br><br><br><br><br>
 
+{% for request in requests %}
+
+<h1><a href="{% url 'requests-update' request.pk %}">Editar</a></h1>
+<h1><a href="{% url 'requests-delete' request.pk %}">Deletar</a></h1>
+<h1>Você fez um pedido a {{ request.teacher }}</h1>
+<p>{{ request.comment }}</p>
+
+<br><br><br>
+
+{% endfor %}
 
 {% endblock %}

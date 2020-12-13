@@ -125,3 +125,65 @@ def home(request):
     }
 
     return render(request, 'home.html', context)
+
+
+@login_required(login_url='/login/')
+def requests_create(request):
+
+    form = RequestForm(request.POST)
+
+    if form.is_valid():
+
+        requ = form.save()
+        requ.requisitioner = request.user
+        requ.save()
+
+        form = RequestForm()
+        return redirect(reverse_lazy('home'))
+
+    context = {
+        'form': form
+    }
+    return render(request, 'core/requests-create.html', context)
+
+
+@login_required(login_url='/login/')
+def requests_update(request, pk):
+
+    req = get_object_or_404(Request, id=pk)
+
+    if req.requisitioner != request.user:
+        return redirect(reverse_lazy('home'))
+
+    form = RequestForm(instance=req)
+
+    if request.method == 'POST':
+
+        form = RequestForm(request.POST, instance=req)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse_lazy('home'))
+
+    context = {
+        'request': req,
+        'form': form
+    }
+    return render(request, 'core/requests-update.html', context)
+
+
+@login_required(login_url='/login/')
+def requests_delete(request, pk):
+
+    req = get_object_or_404(Request, id=pk)
+
+    if req.requisitioner != request.user:
+        return redirect(reverse_lazy('home'))
+
+    if request.method == 'POST':
+        req.delete()
+        return redirect(reverse_lazy('home'))
+
+    context = {
+        'request': req
+    }
+    return render(request, 'core/requests-delete.html', context)
