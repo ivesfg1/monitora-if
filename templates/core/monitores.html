@@ -2,6 +2,8 @@
 {% load static %}
 {% block content %}
 
+<br><br>
+
   <main id="main" data-aos="fade-in">
 
 <!-- ======= Trainers Section ======= -->
@@ -29,8 +31,11 @@
                   <a href=""><i class="icofont-linkedin"></i></a>
                 </div>
               </div>
+
+              <a class="btn btn-success" href="{% url 'requests-create' usuario.pk %}" role="button" style="color: #FFFFFF;">Fazer Pedido</a>
+
             </div>
-          </div>
+            </div>
 
           {% endfor %}
 
@@ -38,8 +43,8 @@
         </div>
 
       </div>
-    </section><!-- End Trainers Section -->
+    </section>
 
-  </main><!-- End #main -->
+  </main>
 
 {% endblock %}

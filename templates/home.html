@@ -2,17 +2,50 @@
 {% load static %}
 {% block content %}
 
-<br><br><br><br><br><br><br>
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+      <div class="container">
+        <h2>Seus Pedidos</h2>
+      </div>
+    </div><!-- End Breadcrumbs -->
 
-{% for request in requests %}
+    <br><br>
 
-<h1><a href="{% url 'requests-update' request.pk %}">Editar</a></h1>
-<h1><a href="{% url 'requests-delete' request.pk %}">Deletar</a></h1>
-<h1>Você fez um pedido a {{ request.teacher }}</h1>
-<p>{{ request.comment }}</p>
+    <section id="courses" class="courses">
+      <div class="container" data-aos="fade-up">
 
-<br><br><br>
+        {% for request in requests %}
+        <div class="row" data-aos="zoom-in" data-aos-delay="100">
 
-{% endfor %}
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="course-item">
+
+                <h3><a href="{% url 'requests-detail' request.pk %}">Disciplina: {{ request.teacher.subject.name }}</a></h3>
+                <br>
+                <p>{{ request.comment|truncatechars:35 }}</p>
+                <div class="trainer d-flex justify-content-between align-items-center">
+                  <div class="trainer-profile d-flex align-items-center">
+                    <img src="{{ request.teacher.photo.thumb.url }}" class="img-fluid" alt="">
+                    <span> {{ request.teacher }} </span>
+
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a class="btn btn-success" href="{% url 'requests-update' request.pk %}" role="button" style="color: #FFFFFF;">Editar</a>
+                      &nbsp;&nbsp;
+                      <a class="btn btn-danger" href="{% url 'requests-delete' request.pk %}" role="button" style="color: #FFFFFF;">Delete</a>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- End Course Item-->
+
+          <br><br><br>
+
+          {% endfor %}
+
+        </div>
+
+      </div>
+    </section><!-- End Courses Section -->
 
 {% endblock %}

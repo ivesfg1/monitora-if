@@ -25,7 +25,7 @@ def index(request):
 def monitores_list(request):
 
     context = {
-        'monitores': User.objects.all()
+        'monitores': User.objects.exclude(username=request.user.username).exclude(subject=None).all()
     }
     return render(request, 'core/monitores.html', context)
 
@@ -128,7 +128,12 @@ def home(request):
 
 
 @login_required(login_url='/login/')
-def requests_create(request):
+def requests_create(request, pk):
+
+    moni = get_object_or_404(User, id=pk)
+
+    if moni == request.user:
+        return redirect(reverse_lazy('home'))
 
     form = RequestForm(request.POST)
 
@@ -136,15 +141,28 @@ def requests_create(request):
 
         requ = form.save()
         requ.requisitioner = request.user
+        requ.teacher = moni
         requ.save()
 
         form = RequestForm()
         return redirect(reverse_lazy('home'))
 
     context = {
-        'form': form
+        'form': form,
+        'monitor': moni
     }
     return render(request, 'core/requests-create.html', context)
+
+
+@login_required(login_url='/login/')
+def requests_detail(request, pk):
+
+    req = get_object_or_404(Request, id=pk)
+
+    context = {
+        'request': req
+    }
+    return render(request, 'core/requests-detail.html', context)
 
 
 @login_required(login_url='/login/')
@@ -187,3 +205,5 @@ def requests_delete(request, pk):
         'request': req
     }
     return render(request, 'core/requests-delete.html', context)
+
+

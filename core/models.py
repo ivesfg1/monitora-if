@@ -63,7 +63,7 @@ class Request(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     requisitioner = models.ForeignKey(User, related_name='requisitioner', on_delete=models.CASCADE, null=True, blank=True)
-    teacher = models.ForeignKey(User, related_name='teacher', on_delete=models.CASCADE)
+    teacher = models.ForeignKey(User, related_name='teacher', on_delete=models.CASCADE, null=True, blank=True)
     comment = models.TextField(max_length=1000)
 
     class Meta:

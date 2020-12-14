@@ -14,7 +14,8 @@ urlpatterns = [
     path('monitores/<uuid:pk>/delete', views.monitores_delete, name='monitores-delete'),
 
     # Requests
-    path('requests/create/', views.requests_create, name='requests-create'),
+    path('requests/<uuid:pk>/create/', views.requests_create, name='requests-create'),
+    path('requests/<uuid:pk>/', views.requests_detail, name='requests-detail'),
     path('requests/<uuid:pk>/update/', views.requests_update, name='requests-update'),
     path('requests/<uuid:pk>/delete/', views.requests_delete, name='requests-delete'),
 

@@ -2,45 +2,42 @@
 {% load static %}
 {% block content %}
 
-  <main id="main" data-aos="fade-in">
+<br><br><br><br><br><br><br><br>
 
-<!-- ======= Trainers Section ======= -->
-    <section id="trainers" class="trainers">
+<section id="courses" class="courses">
       <div class="container" data-aos="fade-up">
 
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
 
-
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div class="member">
-              <img src="{{ monitor.photo.thumb.url }}" class="img-fluid" alt="">
-              <div class="member-content">
-                <h4><a href="{% url 'monitores-detail' monitor.pk %}">{{ monitor.username }}</a></h4>
-                <span>{{ monitor.registration }}</span>
-                <p>
-                  {{ monitor.about }}
-                </p>
-                <div class="social">
-                  <a href=""><i class="icofont-twitter"></i></a>
-                  <a href=""><i class="icofont-facebook"></i></a>
-                  <a href=""><i class="icofont-instagram"></i></a>
+            <div class="course-item">
 
-                  {% if request.user == monitor %}
-                  <a class="btn btn-success" href="{% url 'monitores-update' monitor.pk %}" role="button" style="color: #FFFFFF;">Editar</a>
-                  <a class="btn btn-danger" href="{% url 'monitores-delete' monitor.pk %}" role="button" style="color: #FFFFFF;">Delete</a>
-                  {% endif %}
+                <h3><a href="{% url 'requests-detail' request.pk %}">Disciplina: {{ request.teacher.subject.name }}</a></h3>
+                <br>
+                <p>{{ request.comment }}</p>
+                <div class="trainer d-flex justify-content-between align-items-center">
+                  <div class="trainer-profile d-flex align-items-center">
+                    <img src="{{ request.teacher.photo.thumb.url }}" class="img-fluid" alt="">
+                    <span> {{ request.teacher }} </span>
 
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a class="btn btn-success" href="{% url 'requests-update' request.pk %}" role="button" style="color: #FFFFFF;">Editar</a>
+                      <a class="btn btn-danger" href="{% url 'requests-delete' request.pk %}" role="button" style="color: #FFFFFF;">Delete</a>
+
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </div> <!-- End Course Item-->
+
+          <br><br>
 
 
         </div>
 
       </div>
-    </section><!-- End Trainers Section -->
+    </section><!-- End Courses Section -->
 
-  </main><!-- End #main -->
+<br><br><br><br><br><br><br>
 
 {% endblock %}
