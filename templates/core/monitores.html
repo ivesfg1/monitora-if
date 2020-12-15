@@ -2,7 +2,15 @@
 {% load static %}
 {% block content %}
 
-<br><br>
+<br><br><br><br>
+
+<center>
+<div class="search-bar mt-sm-2 mr-2">
+  <form method="GET">
+      <input type="text" class="form-control" name="q" id="id_q" placeholder="Buscar...">
+  </form>
+</div>
+</center>
 
   <main id="main" data-aos="fade-in">
 
@@ -12,23 +20,31 @@
 
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
 
+          {% if monitores %}
 
           {% for usuario in monitores %}
+
+          {% if usuario != request.user %}
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="member">
               <img src="{{ usuario.photo.thumb.url }}" class="img-fluid" alt="">
               <div class="member-content">
                 <h4><a href="{% url 'monitores-detail' usuario.pk %}">{{ usuario.username }}</a></h4>
-                <span>{{ usuario.registration }}</span>
+                <span>monitor de {{ usuario.subject.name }}</span>
                 <p>
                   {{ usuario.about }}
                 </p>
                 <div class="social">
-                  <a href=""><i class="icofont-twitter"></i></a>
-                  <a href=""><i class="icofont-facebook"></i></a>
-                  <a href=""><i class="icofont-instagram"></i></a>
-                  <a href=""><i class="icofont-linkedin"></i></a>
+                  {% if usuario.twitter != "#" %}
+                  <a href="{{ usuario.twitter }}" target="_blank"><i class="icofont-twitter"></i></a>
+                  {% endif %}
+                  {% if usuario.facebook != "#" %}
+                  <a href="{{ usuario.facebook }}" target="_blank"><i class="icofont-facebook"></i></a>
+                  {% endif %}
+                  {% if usuario.instagram != "#" %}
+                  <a href="{{ usuario.instagram }}" target="_blank"><i class="icofont-instagram"></i></a>
+                  {% endif %}
                 </div>
               </div>
 
@@ -37,7 +53,28 @@
             </div>
             </div>
 
+          {% endif %}
+
           {% endfor %}
+
+          {% else %}
+
+          <div class="container">
+            <div class="row">
+              <div class="card m-auto">
+                <div class="card-body mt-2 mb-2">
+                  <h2 class="card-title">
+                    Nenhum resultado encontrado
+                  </h2>
+                  <p class="card-text">
+                    Não encontramos nenhum resultado referente a sua pesquisa: "{{ query }}".
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% endif %}
 
 
         </div>
@@ -46,5 +83,9 @@
     </section>
 
   </main>
+
+<script type="text/javascript">
+    document.getElementById("id_q").value = "{{ query }}"
+</script>"
 
 {% endblock %}

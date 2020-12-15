@@ -2,97 +2,126 @@
 {% load static %}
 {% block content %}
 
-  <main id="main" data-aos="fade-in">
 
-    <!-- ======= Courses Section ======= -->
+    {% if request.user.subject is not None %}
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+      <div class="container">
+        <h2>Pedidos</h2>
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    {% else %}
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+      <div class="container">
+        <h2>Seus Pedidos</h2>
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    {% endif %}
+
+    <br><br>
+
     <section id="courses" class="courses">
       <div class="container" data-aos="fade-up">
 
+          {% if request.user.subject is not None %}
+
+        {% for request in requests_monitor %}
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="course-item">
-              <img src="{% static 'img/course-1.jpg' %}" class="img-fluid" alt="...">
-              <div class="course-content">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h4>Web Development</h4>
-                  <p class="price">$169</p>
-                </div>
 
-                <h3><a href="course-details.html">Website Design</a></h3>
-                <p>Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
+                <h3><a href="{% url 'requests-detail' request.pk %}">Disciplina: {{ request.teacher.subject.name }}</a></h3>
+                <br>
+                <p>{{ request.comment|truncatechars:35 }}</p>
                 <div class="trainer d-flex justify-content-between align-items-center">
                   <div class="trainer-profile d-flex align-items-center">
-                    <img src="{% static 'img/trainers/trainer-1.jpg' %}" class="img-fluid" alt="">
-                    <span>Antonio</span>
-                  </div>
-                  <div class="trainer-rank d-flex align-items-center">
-                    <i class="bx bx-user"></i>&nbsp;50
-                    &nbsp;&nbsp;
-                    <i class="bx bx-heart"></i>&nbsp;65
+                    <img src="{{ request.requisitioner.photo.thumb.url }}" class="img-fluid" alt="">
+                    <span> {{ request.requisitioner }} </span>
+
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a class="btn btn-danger" href="{% url 'requests-delete' request.pk %}" role="button" style="color: #FFFFFF;">Delete</a>
+
                   </div>
                 </div>
               </div>
             </div>
           </div> <!-- End Course Item-->
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+          <br><br><br>
+
+          {% endfor %}
+
+                {% for request in requests_aluno %}
+        <div class="row" data-aos="zoom-in" data-aos-delay="100">
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="course-item">
-              <img src="{% static 'img/course-2.jpg' %}" class="img-fluid" alt="...">
-              <div class="course-content">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h4>Marketing</h4>
-                  <p class="price">$250</p>
-                </div>
 
-                <h3><a href="course-details.html">Search Engine Optimization</a></h3>
-                <p>Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
+                <h3><a href="{% url 'requests-detail' request.pk %}">Disciplina: {{ request.teacher.subject.name }}</a></h3>
+                <br>
+                <p>{{ request.comment|truncatechars:35 }}</p>
                 <div class="trainer d-flex justify-content-between align-items-center">
                   <div class="trainer-profile d-flex align-items-center">
-                    <img src="{% static 'img/trainers/trainer-2.jpg' %}" class="img-fluid" alt="">
-                    <span>Lana</span>
-                  </div>
-                  <div class="trainer-rank d-flex align-items-center">
-                    <i class="bx bx-user"></i>&nbsp;35
-                    &nbsp;&nbsp;
-                    <i class="bx bx-heart"></i>&nbsp;42
+                    <img src="{{ request.teacher.photo.thumb.url }}" class="img-fluid" alt="">
+                    <span> {{ request.teacher }} </span>
+
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a class="btn btn-success" href="{% url 'requests-update' request.pk %}" role="button" style="color: #FFFFFF;">Editar</a>
+                      &nbsp;&nbsp;
+                      <a class="btn btn-danger" href="{% url 'requests-delete' request.pk %}" role="button" style="color: #FFFFFF;">Delete</a>
+
                   </div>
                 </div>
               </div>
             </div>
           </div> <!-- End Course Item-->
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+          <br><br><br>
+
+          {% endfor %}
+
+          {% else %}
+
+          {% for request in requests_aluno %}
+        <div class="row" data-aos="zoom-in" data-aos-delay="100">
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="course-item">
-              <img src="{% static 'img/course-3.jpg' %}" class="img-fluid" alt="...">
-              <div class="course-content">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h4>Content</h4>
-                  <p class="price">$180</p>
-                </div>
 
-                <h3><a href="course-details.html">Copywriting</a></h3>
-                <p>Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
+                <h3><a href="{% url 'requests-detail' request.pk %}">Disciplina: {{ request.teacher.subject.name }}</a></h3>
+                <br>
+                <p>{{ request.comment|truncatechars:35 }}</p>
                 <div class="trainer d-flex justify-content-between align-items-center">
                   <div class="trainer-profile d-flex align-items-center">
-                    <img src="{% static 'img/trainers/trainer-3.jpg' %}" class="img-fluid" alt="">
-                    <span>Brandon</span>
-                  </div>
-                  <div class="trainer-rank d-flex align-items-center">
-                    <i class="bx bx-user"></i>&nbsp;20
-                    &nbsp;&nbsp;
-                    <i class="bx bx-heart"></i>&nbsp;85
+                    <img src="{{ request.teacher.photo.thumb.url }}" class="img-fluid" alt="">
+                    <span> {{ request.teacher }} </span>
+
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a class="btn btn-success" href="{% url 'requests-update' request.pk %}" role="button" style="color: #FFFFFF;">Editar</a>
+                      &nbsp;&nbsp;
+                      <a class="btn btn-danger" href="{% url 'requests-delete' request.pk %}" role="button" style="color: #FFFFFF;">Delete</a>
+
                   </div>
                 </div>
               </div>
             </div>
           </div> <!-- End Course Item-->
+
+          <br><br><br>
+
+          {% endfor %}
+
+          {% endif %}
+
 
         </div>
 
       </div>
     </section><!-- End Courses Section -->
-
-  </main><!-- End #main -->
 
 {% endblock %}

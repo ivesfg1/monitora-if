@@ -21,6 +21,8 @@ urlpatterns = [
 
     # Outros
     path('home/', views.home, name='home'),
+    path('aulas/', views.aulas, name='aulas'),
+    path('cadastro/monitor', views.cadastro_monitor, name='cadastro-monitor'),
 
     # Login e Logout
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),

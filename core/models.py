@@ -17,12 +17,18 @@ def get_file_path(_instance, filename):
 
 class User(AbstractUser):
 
+    sobre = 'Estou cadastrado no Monitora IF'
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     registration = models.CharField(max_length=11, unique=True)
     photo = StdImageField('Imagem', upload_to=get_file_path,
                           variations={'thumb': {'width': 300, 'height': 300, 'crop': True}}, blank=True, null=True)
-    about = models.TextField(max_length=400, blank=True, null=True)
-    subject = models.ForeignKey('Subject', on_delete=models.CASCADE, related_name='users', blank=True, null=True)
+    about = models.TextField(max_length=400, blank=True, null=True, default=sobre)
+    subject = models.ForeignKey('Subject', on_delete=models.SET_NULL, related_name='users', blank=True, null=True)
+
+    facebook = models.CharField('Facebook', max_length=200, default='#', null=True, blank=True)
+    twitter = models.CharField('Twitter', max_length=200, default='#', null=True, blank=True)
+    instagram = models.CharField('Instagram', max_length=200, default='#', null=True, blank=True)
 
     def __str__(self):
         return self.username

@@ -45,6 +45,27 @@
 
                     <div class="form-row">
                         <div class="col-md-12 form-group">
+                            {{ form.instagram|add_class:'form-control'|append_attr:'placeholder:Link Instagram'|append_attr:'data-rule:"minlen:4"' }}
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-12 form-group">
+                            {{ form.facebook|add_class:'form-control'|append_attr:'placeholder:Link Facebook'|append_attr:'data-rule:"minlen:4"' }}
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-12 form-group">
+                            {{ form.twitter|add_class:'form-control'|append_attr:'placeholder:Link Twitter'|append_attr:'data-rule:"minlen:4"' }}
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-12 form-group">
                             {{ form.password|add_class:'form-control'|append_attr:'placeholder:Senha'|append_attr:'data-rule:"minlen:4"' }}
                             <div class="validate"></div>
                         </div>

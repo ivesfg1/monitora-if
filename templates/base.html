@@ -36,6 +36,13 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
+  <style>
+    .search-bar {
+        max-width: 500px;
+        width: 100%;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -54,9 +61,8 @@
         <ul>
 
           <li class="active"><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="#">Aulas</a></li>
+          <li><a href="{% url 'aulas' %}">Aulas</a></li>
           <li><a href="{% url 'monitores' %}">Monitores</a></li>
-          <li><a href="#">Eventos</a></li>
 
         </ul>
         {% endif %}

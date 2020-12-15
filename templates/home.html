@@ -2,50 +2,63 @@
 {% load static %}
 {% block content %}
 
-    <!-- ======= Breadcrumbs ======= -->
+
+{% if request.user.subject is None %}
+<!-- ======= Breadcrumbs ======= -->
     <div class="breadcrumbs" data-aos="fade-in">
       <div class="container">
-        <h2>Seus Pedidos</h2>
+        <h2>Quer se tornar Monitor?</h2>
+        <h3><a href="{% url 'cadastro-monitor' %}" style="color: #FFFFFF;">CLIQUE AQUI</a></h3>
       </div>
     </div><!-- End Breadcrumbs -->
+{% endif %}
 
-    <br><br>
 
-    <section id="courses" class="courses">
+  <main id="main" data-aos="fade-in">
+
+<!-- ======= Trainers Section ======= -->
+    <section id="trainers" class="trainers">
       <div class="container" data-aos="fade-up">
 
-        {% for request in requests %}
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
 
+
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div class="course-item">
+            <div class="member">
+              <img src="{{ request.user.photo.thumb.url }}" class="img-fluid" alt="">
+              <div class="member-content">
+                <h4>{{ request.user.username }}</h4>
+                <span>{{ request.user.registration }}</span>
+                <p>
+                  {{ request.user.about }}
+                </p>
+                <div class="social">
+                  {% if usuario.twitter != "#" %}
+                  <a href="{{ request.user.twitter }}" target="_blank"><i class="icofont-twitter"></i></a>
+                  {% endif %}
+                  {% if usuario.facebook != "#" %}
+                  <a href="{{ request.user.facebook }}" target="_blank"><i class="icofont-facebook"></i></a>
+                  {% endif %}
+                  {% if usuario.instagram != "#" %}
+                  <a href="{{ request.user.instagram }}" target="_blank"><i class="icofont-instagram"></i></a>
+                  {% endif %}
 
-                <h3><a href="{% url 'requests-detail' request.pk %}">Disciplina: {{ request.teacher.subject.name }}</a></h3>
-                <br>
-                <p>{{ request.comment|truncatechars:35 }}</p>
-                <div class="trainer d-flex justify-content-between align-items-center">
-                  <div class="trainer-profile d-flex align-items-center">
-                    <img src="{{ request.teacher.photo.thumb.url }}" class="img-fluid" alt="">
-                    <span> {{ request.teacher }} </span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <a class="btn btn-success" href="{% url 'requests-update' request.pk %}" role="button" style="color: #FFFFFF;">Editar</a>
-                      &nbsp;&nbsp;
-                      <a class="btn btn-danger" href="{% url 'requests-delete' request.pk %}" role="button" style="color: #FFFFFF;">Delete</a>
+                  <a class="btn btn-success" href="{% url 'monitores-update' request.user.pk %}" role="button" style="color: #FFFFFF;">Editar</a>
+                  <a class="btn btn-danger" href="{% url 'monitores-delete' request.user.pk %}" role="button" style="color: #FFFFFF;">Delete</a>
 
-                  </div>
                 </div>
               </div>
             </div>
-          </div> <!-- End Course Item-->
+          </div>
 
-          <br><br><br>
-
-          {% endfor %}
 
         </div>
 
       </div>
-    </section><!-- End Courses Section -->
+    </section><!-- End Trainers Section -->
+
+  </main><!-- End #main -->
 
 {% endblock %}

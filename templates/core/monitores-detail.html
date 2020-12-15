@@ -16,14 +16,20 @@
               <img src="{{ monitor.photo.thumb.url }}" class="img-fluid" alt="">
               <div class="member-content">
                 <h4><a href="{% url 'monitores-detail' monitor.pk %}">{{ monitor.username }}</a></h4>
-                <span>{{ monitor.registration }}</span>
+                <span>monitor de {{ monitor.subject.name }}</span>
                 <p>
                   {{ monitor.about }}
                 </p>
                 <div class="social">
-                  <a href=""><i class="icofont-twitter"></i></a>
-                  <a href=""><i class="icofont-facebook"></i></a>
-                  <a href=""><i class="icofont-instagram"></i></a>
+                  {% if usuario.twitter != "#" %}
+                  <a href="{{ monitor.twitter }}" target="_blank"><i class="icofont-twitter"></i></a>
+                  {% endif %}
+                  {% if usuario.facebook != "#" %}
+                  <a href="{{ monitor.facebook }}" target="_blank"><i class="icofont-facebook"></i></a>
+                  {% endif %}
+                  {% if usuario.instagram != "#" %}
+                  <a href="{{ monitor.instagram }}" target="_blank"><i class="icofont-instagram"></i></a>
+                  {% endif %}
 
                   {% if request.user == monitor %}
                   <a class="btn btn-success" href="{% url 'monitores-update' monitor.pk %}" role="button" style="color: #FFFFFF;">Editar</a>
