@@ -1,4 +1,5 @@
-💻 Repositório do website "Monitora-IF" desenvolvido como trabalho escolar durante o 4º do curso técnico em informática (IFPB)
+💻 Repositório do website "Monitora-IF" desenvolvido como trabalho escolar 
+durante o 4º ano do meu curso técnico integrado em informática (IFPB - CZ)
 
 # Rodando o projeto
 
